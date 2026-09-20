@@ -5,3 +5,14 @@
 private/
 .DS_Store
 __pycache__/
+
+# rune spec runtime state, parallel checkouts, quarantine, caches
+.workspaces/
+.worktrees/
+.trash/
+.rune-transaction/
+.rune-archive.lock
+.interop/
+.rumdl_cache/
+.specstory/history/
+.specstory/debug/

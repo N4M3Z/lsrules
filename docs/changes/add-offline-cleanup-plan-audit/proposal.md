@@ -19,9 +19,9 @@ It does not automate VPN activation, subscribe to blocklists, or publish a repos
 
 ### New Capabilities
 
-- `snapshot-evidence`: Bounded private snapshot input, exact rule fields, evidence provenance, and explicit unknown values.
+- `snapshot-evidence-capture`: Bounded private snapshot input, exact rule fields, evidence provenance, and explicit unknown values.
 - `cleanup-plan-audit`: Conservative candidate generation and deterministic review of proposed changes against scope constraints.
-- `audit-reporting`: Private decision reports, public summaries, and independent adversarial review evidence.
+- `cleanup-audit-reporting`: Private decision reports, public summaries, and independent adversarial review evidence.
 
 ### Modified Capabilities
 

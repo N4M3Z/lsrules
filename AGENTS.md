@@ -9,8 +9,8 @@ Use `.agents/skills/lsrules-audit/SKILL.md` for policy audits.
 Use `.agents/skills/lsrules-source-review/SKILL.md` for source reviews.
 Use `.agents/skills/lsrules-release/SKILL.md` for release preparation.
 
-Use the local `openspec/` root for behavior changes.
-Read `openspec/config.yaml` and the relevant change artifacts before proposing or implementing a change.
+Use the local `docs/` spec root for behavior changes (LSR-0001).
+Read the relevant change artifacts under `docs/changes/` before proposing or implementing a change.
 Keep proposed requirements in change specs until implementation and verification are complete.
 An OpenSpec proposal does not establish that a capability exists or that implementation has been authorized.
 
