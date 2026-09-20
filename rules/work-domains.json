@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "document_type": "manual-profile-domain-source",
+  "native_import_format": false,
+  "profile_name": "Work",
+  "action": "deny",
+  "direction": "outgoing",
+  "process": "any-process",
+  "owner": "any-owner",
+  "priority": "high",
+  "protocol": "any",
+  "ports": "any",
+  "domains": [
+    "cdninstagram.com",
+    "facebook.com",
+    "fbcdn.net",
+    "instagram.com",
+    "t.co",
+    "tiktok.com",
+    "tiktokapis.com",
+    "tiktokcdn-us.com",
+    "tiktokcdn.com",
+    "twimg.com",
+    "twitter.com",
+    "x.com"
+  ],
+  "instructions": "Create the rule inside Work in the native Rules window. Verify Work scope before enabling it. This JSON does not create a profile."
+}

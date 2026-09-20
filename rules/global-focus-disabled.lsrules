@@ -1,0 +1,27 @@
+{
+  "name": "Global focus deny example - disabled",
+  "description": "Global example for all profiles and users. It is disabled. This file does not create or select Work. Use work-domains.json for manual Work rules.",
+  "rules": [
+    {
+      "process": "any",
+      "action": "deny",
+      "direction": "outgoing",
+      "remote-domains": [
+        "cdninstagram.com",
+        "facebook.com",
+        "fbcdn.net",
+        "instagram.com",
+        "t.co",
+        "tiktok.com",
+        "tiktokapis.com",
+        "tiktokcdn-us.com",
+        "tiktokcdn.com",
+        "twimg.com",
+        "twitter.com",
+        "x.com"
+      ],
+      "priority": "high",
+      "disabled": true
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "document_type": "profile-design-metadata",
+  "native_import_format": false,
+  "automatic_apply": false,
+  "profile_inheritance": "A profile uses its own rules plus all-profile rules. It does not inherit another profile.",
+  "profiles": {
+    "Trusted": {
+      "purpose": "Networks explicitly trusted by the owner.",
+      "activation": "manual-or-reviewed-network-association"
+    },
+    "Untrusted": {
+      "purpose": "Airports, hotels, guest networks, and unknown networks.",
+      "operation_mode": "alert",
+      "incoming_local_network_rules": [
+        {
+          "action": "deny",
+          "process": "any-process",
+          "owner": "any-owner",
+          "protocol": "tcp",
+          "ports": "any",
+          "priority": "high",
+          "direction": "incoming",
+          "remote": "local-net"
+        },
+        {
+          "action": "deny",
+          "process": "any-process",
+          "owner": "any-owner",
+          "protocol": "udp",
+          "ports": "any",
+          "priority": "high",
+          "direction": "incoming",
+          "remote": "local-net"
+        },
+        {
+          "action": "allow",
+          "process": "identifier.APPLE/com.apple.configd",
+          "owner": "system",
+          "protocol": "udp",
+          "local_ports": [
+            68,
+            546
+          ],
+          "priority": "high",
+          "direction": "incoming",
+          "remote": "local-net",
+          "process_binding_instruction": "Select the installed configd process and verify its Apple identity and System owner. This metadata is not a validated native import."
+        }
+      ],
+      "boundary_limit": "These rules restrict incoming TCP and UDP from Local Network. They do not isolate outgoing Local Network traffic."
+    },
+    "Work": {
+      "purpose": "Required applications with social-service restrictions.",
+      "operation_mode": "alert",
+      "activation": "manual-until-an-exact-supported-network-selector-is-verified",
+      "social_domains_source": "rules/work-domains.json",
+      "incoming_boundary": "Use the same reviewed incoming boundary as Untrusted.",
+      "required_before_activation": [
+        "Review required browser, mail, chat, VPN, and developer rules.",
+        "Preserve DHCP, DNS, and loopback needs.",
+        "Test required workflows and review new alerts."
+      ],
+      "application_rules": "Review required application rules locally. Do not import an installed-app allow inventory from another machine."
+    }
+  },
+  "vpn_activation": {
+    "proton_vpn_app_trigger": "do-nothing-unless-all-of-its-servers-should-select-the-profile",
+    "wireguard_app_trigger": "do-nothing-unless-all-of-its-tunnels-should-select-the-profile",
+    "server_specific_activation": "Do not infer server identity from an app-only trigger. Keep exact server selectors private.",
+    "automatic_server_match_configured": false
+  },
+  "source": "https://help.obdev.at/littlesnitch6/concepts-profiles"
+}

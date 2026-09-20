@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "document_type": "upstream-catalog-metadata",
+  "native_import_format": false,
+  "automatic_apply": false,
+  "automatic_fetch": false,
+  "upstream_list_contents_vendored": false,
+  "recommended_start": [
+    "peter-lowe",
+    "urlhaus"
+  ],
+  "optional_general_purpose_choose_at_most_one": [
+    "stevenblack",
+    "hagezi-light"
+  ],
+  "remote_group_policy": {
+    "disable_new_allow_rules": true,
+    "review_updates": true,
+    "avoid_arbitrary_allow_subscriptions": true
+  },
+  "sources": [
+    {
+      "id": "peter-lowe",
+      "name": "Peter Lowe",
+      "purpose": "ads-and-tracking",
+      "selection": "recommended-start",
+      "url": "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=nohtml&mimetype=plaintext",
+      "preferred_installation": "current-native-catalog-preset",
+      "license_status": "not-verified-no-content-vendored"
+    },
+    {
+      "id": "urlhaus",
+      "name": "URLhaus",
+      "purpose": "malware-distribution",
+      "selection": "recommended-start",
+      "observed_native_url": "https://urlhaus.abuse.ch/downloads/hostfile/",
+      "preferred_installation": "current-native-catalog-preset",
+      "access_note": "Current download access can require an Auth-Key or a commercial arrangement. Verify the native preset and update status. Do not store an Auth-Key in this repository.",
+      "reference": "https://urlhaus.abuse.ch/api/",
+      "license_status": "access-and-redistribution-terms-require-review-no-content-vendored"
+    },
+    {
+      "id": "adaway",
+      "name": "AdAway",
+      "purpose": "ads-and-tracking",
+      "selection": "optional-continuity-choice-review-overlap",
+      "url": "https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt",
+      "reference": "https://github.com/AdAway/adaway.github.io",
+      "license": "CC-BY-3.0",
+      "license_scope": "hosts-file-header; not-the-Android-app-license"
+    },
+    {
+      "id": "stevenblack",
+      "name": "StevenBlack hosts",
+      "purpose": "general-ads-and-tracking",
+      "selection": "optional-choose-at-most-one-general-purpose-list",
+      "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
+      "reference": "https://github.com/StevenBlack/hosts",
+      "license": "MIT",
+      "license_scope": "upstream-project-review-aggregated-source-terms-before-vendoring",
+      "overlap": "Substantial overlap with other general-purpose lists."
+    },
+    {
+      "id": "hagezi-light",
+      "name": "HaGezi Light",
+      "purpose": "general-ads-and-tracking",
+      "selection": "optional-prefer-current-native-preset",
+      "reference": "https://github.com/hagezi/dns-blocklists",
+      "legacy_reference": "https://github.com/hagezi/dns-blocklists-legacy",
+      "license": "GPL-3.0",
+      "update_note": "Legacy endpoints can receive irregular updates. Verify the current native preset and update health.",
+      "list_url": null
+    }
+  ],
+  "selection_notes": [
+    "Start with a small ads/tracking list and a malware list.",
+    "Review false positives before adding broader coverage.",
+    "Avoid stacking a larger general-purpose list on both Peter Lowe and AdAway.",
+    "No source is fetched by the package.",
+    "Check licenses and current access terms before redistributing list contents."
+  ],
+  "existing_continuity_option": "adaway"
+}
