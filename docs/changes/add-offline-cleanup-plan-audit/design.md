@@ -202,9 +202,10 @@ Archive this change only after implementation, scenario validation, and independ
 
 ## Review Evidence
 
-An independent Daybreak review of the existing package supplied the initial acceptance risks for this proposal.
+An earlier independent review of the existing package supplied the initial acceptance risks for this proposal.
 It identified missing native parsing and coverage proofs, distinct evidence types, profile leakage, privacy, and changing media endpoints.
 This review does not establish that the proposed implementation works.
-The second Daybreak review found gaps in witness provenance, management semantics, unknown fields, scope binding, and failure-output privacy.
+The second independent review found gaps in witness provenance, management semantics, unknown fields, scope binding, and failure-output privacy.
+This package does not attest the runtime model used for those earlier reviews.
 The design now requires unchanged original witnesses, explicit management gates, plan-bound scope records, and safe stdout and stderr.
 The specs and tasks must include the corresponding negative cases before the proposal is ready for implementation review.

@@ -10,4 +10,3 @@
 - Use placeholders for machine-specific paths and identities.
 - Ask before the exact commit, repository creation, or push.
 - Do not run network probes, provider tests, or external validation automatically.
-

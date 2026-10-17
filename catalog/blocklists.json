@@ -10,6 +10,7 @@
     "urlhaus"
   ],
   "optional_general_purpose_choose_at_most_one": [
+    "oisd-big",
     "stevenblack",
     "hagezi-light"
   ],
@@ -20,11 +21,34 @@
   },
   "sources": [
     {
+      "id": "oisd-big",
+      "name": "OISD Big",
+      "purpose": "general-domain-blocking",
+      "selection": "optional-choose-at-most-one-general-purpose-list",
+      "reference": "https://oisd.nl/setup/littlesnitch",
+      "license_status": "upstream-license-identified-no-content-vendored",
+      "overlap": "Overlaps smaller ads and tracking lists. Review false positives before combining sources.",
+      "url": "https://big.oisd.nl",
+      "license": "GPL-3.0",
+      "license_reference": "https://oisd.nl/faq"
+    },
+    {
+      "id": "phishing-army",
+      "name": "Phishing Army",
+      "purpose": "phishing-domains",
+      "selection": "optional-phishing-coverage",
+      "reference": "https://phishing.army/",
+      "license_status": "upstream-data-terms-require-review-no-content-vendored",
+      "url": "https://phishing.army/download/phishing-army-domains.txt",
+      "license_reference": "https://phishing.army/license/",
+      "access_note": "The aggregation adds no access restriction. Independent source terms still apply to use and redistribution."
+    },
+    {
       "id": "peter-lowe",
       "name": "Peter Lowe",
       "purpose": "ads-and-tracking",
       "selection": "recommended-start",
-      "url": "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=nohtml&mimetype=plaintext",
+      "url": "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=plain&mimetype=plaintext",
       "preferred_installation": "current-native-catalog-preset",
       "license_status": "not-verified-no-content-vendored"
     },
@@ -33,11 +57,11 @@
       "name": "URLhaus",
       "purpose": "malware-distribution",
       "selection": "recommended-start",
-      "observed_native_url": "https://urlhaus.abuse.ch/downloads/hostfile/",
       "preferred_installation": "current-native-catalog-preset",
-      "access_note": "Current download access can require an Auth-Key or a commercial arrangement. Verify the native preset and update status. Do not store an Auth-Key in this repository.",
+      "access_note": "The documented API downloads require an Auth-Key. Commercial use may require a paid subscription. Verify the native preset separately. Never store credentials in this package.",
       "reference": "https://urlhaus.abuse.ch/api/",
-      "license_status": "access-and-redistribution-terms-require-review-no-content-vendored"
+      "license_status": "access-and-redistribution-terms-require-review-no-content-vendored",
+      "legacy_reference": "https://urlhaus.abuse.ch/downloads/hostfile/"
     },
     {
       "id": "adaway",
@@ -46,8 +70,8 @@
       "selection": "optional-continuity-choice-review-overlap",
       "url": "https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt",
       "reference": "https://github.com/AdAway/adaway.github.io",
-      "license": "CC-BY-3.0",
-      "license_scope": "hosts-file-header; not-the-Android-app-license"
+      "license_status": "hosts-file-license-not-reverified-no-content-vendored",
+      "license_note": "The website and Android app licenses do not establish the current hosts-file license."
     },
     {
       "id": "stevenblack",
@@ -68,7 +92,7 @@
       "reference": "https://github.com/hagezi/dns-blocklists",
       "legacy_reference": "https://github.com/hagezi/dns-blocklists-legacy",
       "license": "GPL-3.0",
-      "update_note": "Legacy endpoints can receive irregular updates. Verify the current native preset and update health.",
+      "update_note": "The current repository separates legacy Hosts and Subdomains formats. Verify the current native preset and update health.",
       "list_url": null
     }
   ],
@@ -79,5 +103,6 @@
     "No source is fetched by the package.",
     "Check licenses and current access terms before redistributing list contents."
   ],
-  "existing_continuity_option": "adaway"
+  "existing_continuity_option": "adaway",
+  "source_review": "review-2026-10-17.md"
 }

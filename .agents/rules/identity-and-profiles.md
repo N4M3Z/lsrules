@@ -11,4 +11,3 @@
 - A profile is host-local state.
 - A remote subscription is global unless native documentation proves profile scope.
 - Do not describe a global subscription as a Work-only rule.
-

@@ -1,0 +1,3 @@
+[submodule "lsrules-private"]
+	path = private
+	url = https://github.com/N4M3Z/lsrules-private.git

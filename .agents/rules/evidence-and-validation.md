@@ -12,4 +12,3 @@
 - Do not infer runtime enforcement from a successful request.
 - Use offline validators before any native review.
 - Do not claim native acceptance without native evidence.
-

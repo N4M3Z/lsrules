@@ -7,11 +7,13 @@
   "profiles": {
     "Trusted": {
       "purpose": "Networks explicitly trusted by the owner.",
+      "operation_mode": "alert",
       "activation": "manual-or-reviewed-network-association"
     },
     "Untrusted": {
       "purpose": "Airports, hotels, guest networks, and unknown networks.",
-      "operation_mode": "alert",
+      "operation_mode": "silent-deny",
+      "operation_mode_limit": "Silent Deny rejects unmatched connections. Existing allow rules still apply.",
       "incoming_local_network_rules": [
         {
           "action": "deny",
@@ -70,5 +72,6 @@
     "server_specific_activation": "Do not infer server identity from an app-only trigger. Keep exact server selectors private.",
     "automatic_server_match_configured": false
   },
-  "source": "https://help.obdev.at/littlesnitch6/concepts-profiles"
+  "source": "https://help.obdev.at/littlesnitch6/concepts-profiles",
+  "policy_status": "Portable design. Verify each target machine before application."
 }
