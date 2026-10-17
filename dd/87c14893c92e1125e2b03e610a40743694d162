@@ -1,0 +1,125 @@
+.agents/README.md
+  s_00fd7785926095::t_0a0b5aa36b7454 1-21
+.agents/agents/daybreak-adversary.md
+  s_00fd7785926095::t_5f495f4e735ae2 1-45
+.agents/rules/evidence-and-validation.md
+  s_00fd7785926095::t_4135bc8ad12acd 1-14
+.agents/rules/identity-and-profiles.md
+  s_00fd7785926095::t_c6ca87f2c42184 1-13
+.agents/rules/scope-and-publication.md
+  s_00fd7785926095::t_94b08b2ee63eab 1-12
+.agents/skills/lsrules-audit/SKILL.md
+  s_00fd7785926095::t_65156a96cb3bf8 1-63
+.agents/skills/lsrules-release/SKILL.md
+  s_00fd7785926095::t_77928206a4f7ce 1-57
+.agents/skills/lsrules-source-review/SKILL.md
+  s_00fd7785926095::t_2b13528e2e3958 1-58
+.codex/agents/daybreak-adversary.toml
+  s_00fd7785926095::t_b9cf87ce4ec783 1-13
+.gitignore
+  s_00fd7785926095::t_5defb61a85cf05 1-18
+.gitmodules
+  s_00fd7785926095::t_22d00b7da83fd1 1-3
+AGENTS.md
+  s_00fd7785926095::t_19e95729863a13 1-23
+INSTALL.md
+  s_00fd7785926095::t_7b355fbc59a437 1-86
+LICENSE
+  s_00fd7785926095::t_90f73cea793967 1-190
+PUBLISHING.md
+  s_00fd7785926095::t_56d0a1af8574a0 1-72
+README.md
+  s_00fd7785926095::t_2269718425ce7f 1-40
+THIRD_PARTY.md
+  s_00fd7785926095::t_e9e3dfa7e77604 1-32
+authors.yaml
+  s_00fd7785926095::t_efe3a8878583fb 1-3
+catalog/blocklists.json
+  s_00fd7785926095::t_4e72e9ecaf6bad 1-108
+catalog/review-2026-10-17.md
+  s_00fd7785926095::t_beb0653b9141cd 1-26
+defaults.yaml
+  s_00fd7785926095::t_313f09b46acc41 1-4
+docs/changes/add-offline-cleanup-plan-audit/.openspec.yaml
+  s_00fd7785926095::t_85bbd6f7eb5c56 1-2
+docs/changes/add-offline-cleanup-plan-audit/README.md
+  s_00fd7785926095::t_8a564bb469c156 1-3
+docs/changes/add-offline-cleanup-plan-audit/design.md
+  s_00fd7785926095::t_2ed55cbcf64be4 1-211
+docs/changes/add-offline-cleanup-plan-audit/proposal.md
+  s_00fd7785926095::t_c6a411008b4449 1-37
+docs/changes/add-offline-cleanup-plan-audit/specs/cleanup-audit-reporting/spec.md
+  s_00fd7785926095::t_1f84c566d31ff1 1-97
+docs/changes/add-offline-cleanup-plan-audit/specs/cleanup-plan-audit/spec.md
+  s_00fd7785926095::t_ed9253bca4c6aa 1-125
+docs/changes/add-offline-cleanup-plan-audit/specs/snapshot-evidence-capture/spec.md
+  s_00fd7785926095::t_81928c00f8b9d8 1-95
+docs/changes/add-offline-cleanup-plan-audit/tasks.md
+  s_00fd7785926095::t_7cfe3b462ffc2a 1-40
+docs/changes/fix-publication-validation/.openspec.yaml
+  s_00fd7785926095::t_2ce888ae7235c2 1-2
+docs/changes/fix-publication-validation/proposal.md
+  s_00fd7785926095::t_fe5bcd7a7f119c 1-32
+docs/changes/fix-publication-validation/record.md
+  s_00fd7785926095::t_44a01cc2306f06 1-39
+docs/changes/fix-publication-validation/specs/private-submodule-boundary/spec.md
+  s_00fd7785926095::t_5cd87ed02daf08 1-76
+docs/changes/fix-publication-validation/specs/publication-document-provenance/spec.md
+  s_00fd7785926095::t_31700740bce160 1-94
+docs/changes/fix-publication-validation/tasks.md
+  s_00fd7785926095::t_2b2f30dab8718a 1-13
+docs/cleanup-method.md
+  s_00fd7785926095::t_4dbc95befefc13 1-53
+"docs/decisions/.provenance/LSR-0001 Spec-Driven Change Lifecycle.md.yaml"
+  s_00fd7785926095::t_89575b216f12bd 1-45
+docs/decisions/.provenance/replacements/0596ac02425217d2902f5a3b34f647589d0d99b7004fb24a65eacdc38a6632a3
+  s_00fd7785926095::t_65e6c8c127aedd 1
+docs/decisions/.provenance/replacements/72ffe6c81435e8e48e982f9011f1458b5769f2a9e62bc9dccead5c0554dd932d
+  s_00fd7785926095::t_70496062568248 1-29
+docs/decisions/.provenance/replacements/83b7f4d9a3afcde4742e2b874c7315d19369df708e3267924ec42ad0da9c168f
+  s_00fd7785926095::t_685dc47cbdeb67 1-7
+docs/decisions/.provenance/replacements/f9015eecaf3a3bfc5aa79dc4fbb0ff253c42117bb86dd34458175788b09aeb7c
+  s_00fd7785926095::t_bebd2188286ddf 1-5
+docs/decisions/.provenance/sources/0facb9e506e60e620b4ceac1f4db6e1a5175508cf7520b883a70e375dc17ba64
+  s_00fd7785926095::t_93a78d15dd71db 1-56
+"docs/decisions/LSR-0001 Spec-Driven Change Lifecycle.md"
+  s_00fd7785926095::t_c3582c21552fc8 1-62
+docs/identities.md
+  s_00fd7785926095::t_ce148dec5d5389 1-25
+docs/native-workflow.md
+  s_00fd7785926095::t_2329ae459e76e1 1-45
+docs/private-companion.md
+  s_00fd7785926095::t_83b8565d639e42 1-49
+docs/reference.md
+  s_00fd7785926095::t_14d96bd0c83303 1-118
+module.yaml
+  s_00fd7785926095::t_622bd33309d848 1-5
+private
+  s_00fd7785926095::t_265dad355b4843 1
+profiles/policy.json
+  s_00fd7785926095::t_82239df6e3102b 1-77
+rules/global-focus-disabled.lsrules
+  s_00fd7785926095::t_3456b26b7f13e1 1-27
+rules/work-domains.json
+  s_00fd7785926095::t_7f3fcdb5b376ba 1-28
+scripts/check.py
+  s_00fd7785926095::t_e1e576c96fdbdb 1-557
+scripts/test_check.py
+  s_00fd7785926095::t_6781e4e5a68330 1-647
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dd87c14893c92e1125e2b03e610a40743694d162",
+  "prompts": {},
+  "sessions": {
+    "s_00fd7785926095": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0a943-0686-7302-8905-4690127513f8",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "N4M3Z <N4M3Z@users.noreply.github.com>"
+    }
+  }
+}
