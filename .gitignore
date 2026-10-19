@@ -5,6 +5,13 @@
 private/
 .DS_Store
 __pycache__/
+.ruff_cache/
+.pytest_cache/
+.venv/
+build/
+dist/
+.env
+.entire/
 
 # rune spec runtime state, parallel checkouts, quarantine, caches
 .workspaces/

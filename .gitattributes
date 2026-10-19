@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# Preserve adopted documents and their digest-bound evidence byte for byte.
+docs/decisions/** -text

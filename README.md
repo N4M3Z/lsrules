@@ -25,6 +25,7 @@ python3 -B scripts/test_check.py
 ```
 
 Both commands exit 0 on success. They run offline and do not change repository files.
+With Make installed, `make validate` runs both commands.
 Read [AGENTS.md](AGENTS.md) before agent work.
 
 ## Documentation
@@ -33,6 +34,8 @@ Read [AGENTS.md](AGENTS.md) before agent work.
 - [Native workflow](docs/native-workflow.md): manual review in Little Snitch 6.
 - [Private submodule](docs/private-companion.md): the private boundary and clone behavior.
 - [Publication procedure](PUBLISHING.md): approval boundaries before a push.
+- [Contributing](CONTRIBUTING.md): local tooling, public-file checks, and review conventions.
+- [Template alignment](docs/skeleton-alignment.md): applicable skeleton parts and their limits.
 
 ## License
 

@@ -34,7 +34,7 @@ See [backups](https://help.obdev.at/littlesnitch6/lsc-backup).
 ## Dynamic Tailscale peers
 
 Tailscale direct peers can use changing addresses and remote UDP ports.
-Its default UDP port 41641 guidance describes a local source port, not a remote-port restriction.
+The default UDP port 41641 refers to the local source port.
 See [Tailscale firewall guidance](https://tailscale.com/docs/reference/faq/firewall-ports).
 
 An explicitly approved option trusts the verified Tailscale network extension for outgoing UDP to any remote address and port.

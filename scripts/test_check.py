@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Exercise unsafe near misses without changing package files."""
 
-from contextlib import ExitStack, redirect_stdout
-from io import StringIO
 import hashlib
 import json
 import os
 import tempfile
 import unittest
+from contextlib import ExitStack, redirect_stdout
+from io import StringIO
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -20,7 +20,9 @@ def provenance_fixture():
     subject = b"# Synthetic decision\n\nA local decision.\n"
     upstream = b"# Synthetic source\n\nAn upstream decision.\n"
     replacement = b"A reviewed replacement.\n"
-    digest = lambda data: hashlib.sha256(data).hexdigest()
+    def digest(data):
+        return hashlib.sha256(data).hexdigest()
+
     name = "LSR-0002 Synthetic Decision.md"
     record_name = f"docs/decisions/.provenance/{name}.yaml"
     record = f"""provenance:
@@ -273,7 +275,7 @@ class PackageContentChecks(unittest.TestCase):
             ("index", f"160000 {commit} 0\tprivate\0" * 2),
         ]
         for kind, value in cases:
-            def reader(directory, arguments):
+            def reader(directory, arguments, kind=kind, value=value):
                 selected = "top" if "--show-toplevel" in arguments else "head" if "--verify" in arguments else "index"
                 if selected == "top" and directory.name != "private":
                     selected = "parent"

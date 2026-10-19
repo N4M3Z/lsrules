@@ -21,6 +21,12 @@ Preserve distinct helper paths and identity requirements even when their visible
 Check competing deny rules and native precedence before declaring an allow rule redundant.
 Keep the retained covering rule unchanged during a bounded deletion.
 
+Check blocklist priority before restoring a disabled targeted allow.
+A host or domain allow can override a normal-priority blocklist entry.
+Compare the proposed destination against the active lists before applying the change.
+An empty overlap result applies only to the inspected list versions.
+See the [rule precedence reference](https://help.obdev.at/littlesnitch6/concepts-rules).
+
 Prefer exact hosts and required ports when evidence establishes the needed destinations.
 Do not replace a stale helper path with a broad permission for newer executables.
 Confirm that a fixed executable path is obsolete before removing its rule.

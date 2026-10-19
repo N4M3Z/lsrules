@@ -13,7 +13,6 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
-
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_AI_DOMAINS = {
     "chatgpt.com", "openai.com", "oaistatic.com", "oaiusercontent.com",
@@ -291,7 +290,7 @@ def agent_checks(root):
 
     expected = [root / ".agents/skills" / name / "SKILL.md" for name in SKILL_NAMES]
     check("canonical_skill_files_present", all(path.is_file() for path in expected))
-    for path, name in zip(expected, SKILL_NAMES):
+    for path, name in zip(expected, SKILL_NAMES, strict=True):
         if not path.is_file():
             continue
         try:
@@ -388,8 +387,9 @@ def read_only_git(directory, arguments):
         "GIT_NO_LAZY_FETCH": "1",
     })
     try:
-        result = subprocess.run(
-            ["git", "-c", "core.fsmonitor=false", "-c", "protocol.allow=never",
+        # The command uses the fixed local Git probe allowlist above.
+        result = subprocess.run(  # noqa: S603
+            ["git", "-c", "core.fsmonitor=false", "-c", "protocol.allow=never",  # noqa: S607
              "-C", str(directory), *arguments],
             env=environment, capture_output=True, text=True, check=True, timeout=5,
         )
@@ -554,4 +554,4 @@ if __name__ == "__main__":
         raise SystemExit(main())
     except (OSError, ValueError, KeyError) as error:
         print(f"Package check failed: {error}", file=sys.stderr)
-        raise SystemExit(1)
+        raise SystemExit(1) from None
