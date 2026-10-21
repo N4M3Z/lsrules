@@ -4,5 +4,8 @@ authors:
     - Claude Fable 5 (claude-fable-5) <noreply@anthropic.com>
     - Codex GPT 6 Astra (gpt-6-astra) <noreply@openai.com>
     - Claude Opus 5.5 (claude-opus-5-5) <noreply@anthropic.com>
+    # Fixtures for this branch's account-link test, not original contributors.
+    - Grok (attribution display test) <grok-export@users.noreply.github.com>
+    - Gemini Code Assist (attribution display test) <176961590+gemini-code-assist[bot]@users.noreply.github.com>
 
 model_domains: []
