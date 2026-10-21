@@ -1,7 +1,7 @@
 # Policy reference
 
-Little Snitch policy references and review procedures for repository agents.
-Start with [AGENTS.md](../AGENTS.md) and [agent resources](../.agents/README.md).
+Little Snitch policy references and targeted rule review procedures.
+Start with the [cleanup method](cleanup-method.md).
 The package contains no machine backup and applies no host changes.
 
 ## Package scope
@@ -13,26 +13,11 @@ See [publication procedure](../PUBLISHING.md) for the prepared destination and a
 Keep personal rules, IP addresses, and machine evidence in the separately controlled [private submodule](private-companion.md).
 Public clones and checks do not require private submodule access.
 
-## OpenSpec planning
+## Change history
 
-Behavior changes use the local `docs/` root and the spec-driven workflow.
-The first [proposal](changes/add-offline-cleanup-plan-audit/proposal.md) defines an offline cleanup-plan auditor.
-Its [design](changes/add-offline-cleanup-plan-audit/design.md) explains evidence, scope, privacy, and verification limits.
-These artifacts describe proposed behavior. The auditor is not implemented yet.
-
-## Agent workflow
-
-1. Use [lsrules-audit](../.agents/skills/lsrules-audit/SKILL.md) for rules, profiles, disabled clutter, and changing-IP scope.
-2. Use [lsrules-source-review](../.agents/skills/lsrules-source-review/SKILL.md) before adopting upstream lists or tools.
-3. Dispatch the [Daybreak adversary](../.agents/agents/daybreak-adversary.md) to challenge the exact proposal independently.
-4. Use [lsrules-release](../.agents/skills/lsrules-release/SKILL.md) to prepare a checked package and complete authorized publication steps.
-
-Source review precedes release when a change introduces an upstream source.
-Skills contain procedures for each task. The rules under `.agents/rules/` define the shared constraints.
-The [Codex adapter](../.codex/agents/daybreak-adversary.toml) configures the native Daybreak agent to read the canonical contract.
-The Markdown contract does not dispatch itself or select a model by itself.
-Check runtime evidence before claiming which model or sandbox performed a review.
-Other harnesses require an explicit supported dispatch mechanism.
+Older proposals and decision records remain under `docs/changes/` and `docs/decisions/`.
+They do not require a proposal or automated review pipeline for routine maintenance.
+The [cleanup-plan auditor proposal](changes/add-offline-cleanup-plan-audit/proposal.md) remains unimplemented.
 
 ## Policy files
 
@@ -97,13 +82,10 @@ The validator is offline and read-only. The regression tests use synthetic input
 An initialized private submodule also requires Git for local metadata checks.
 The validator excludes its payload only after verifying the private boundary.
 An absent private checkout validates the declaration only. Publication staging must verify the selected child commit separately.
-The checks cover policy safety, canonical skill structure, local references, and the allowed native adapter fields.
+The checks cover policy safety, private data boundaries, and local guide links.
 The validator excludes root Git and Jujutsu metadata, plus Python bytecode caches, from package content.
 Document provenance digests require verification against local source bytes before the fingerprint check can exempt their exact metadata fields.
 Other digest occurrences still receive the fingerprint check. A declared digest alone does not establish an exception.
-Frontmatter uses a restricted string-only YAML subset. The checker is not a general YAML parser.
-Structural checks do not prove that prose is safe or that an agent obeys its instructions.
-The Daybreak review must also assess instruction meaning and unsupported loading or enforcement claims.
 A JSON check does not prove native import acceptance or effective rule precedence.
 Test browsing, sign-in, mail, calls, DHCP, and VPN transitions in the selected profile.
 Correlate blocked requests with native rule use before declaring enforcement verified.

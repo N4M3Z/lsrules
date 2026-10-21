@@ -23,14 +23,13 @@ The publication preparation added this notice and the upstream license copy on 2
 The repository tooling adapts [runedeck/skeleton](https://github.com/runedeck/skeleton) at commit `62e1f6674ac7c1d248d71eaa2660ebda600c3ef0`.
 That upstream project uses EUPL-1.2. The existing [license text](LICENSE) remains unchanged.
 
-The adaptation dated 2026-10-18 uses `templates/base/`, `templates/python/`, and `templates/tool/`.
-The document schemas retain the upstream bytes.
-The editor configuration adds exceptions for private and adopted evidence.
-The Vale style files retain their upstream rules with an added snapshot comment.
-The Makefile, lint configurations, contribution guide, pull request template, and quality workflow adapt the template for this package.
-The README retains the tool template structure with package-specific content.
+The initial adaptation dated 2026-10-18 used `templates/base/`, `templates/python/`, and `templates/tool/`.
+The 2026-10-21 revision keeps the editor defaults, Makefile, validation hooks, quality workflow, and documentation structure.
+The README uses the tool template structure. INSTALL uses the base template's Mintlify agent-executable structure.
+Both contain package-specific instructions.
+The revision removes the prose styles, document schemas, and optional lint toolchain.
 
-See [template alignment](docs/skeleton-alignment.md) for the included files, maintenance method, and omitted template functions.
+See [template alignment](docs/skeleton-alignment.md) for the current scope.
 The adaptation preserves the existing public license, private boundary, and author identity.
 
 ## Referenced blocklists

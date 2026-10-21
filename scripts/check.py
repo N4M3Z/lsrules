@@ -8,7 +8,6 @@ import os
 import re
 import subprocess
 import sys
-import tomllib
 from datetime import datetime
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -18,11 +17,6 @@ REQUIRED_AI_DOMAINS = {
     "chatgpt.com", "openai.com", "oaistatic.com", "oaiusercontent.com",
     "anthropic.com", "claude.ai", "lumo.proton.me", "x.ai",
 }
-SKILL_NAMES = ("lsrules-audit", "lsrules-source-review", "lsrules-release")
-SKILL_SECTIONS = ("Prerequisites", "Constraints", "Instructions", "Verification", "Troubleshooting", "References")
-SKILL_FIELDS = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
-DAYBREAK_MODEL = "gpt-daybreak-blue-latest"
-DAYBREAK_CONTRACT = ".agents/agents/daybreak-adversary.md"
 FINGERPRINT = re.compile(r"(?<![A-Za-z0-9])[a-f0-9]{64}(?![A-Za-z0-9])")
 IPV6_CANDIDATE = re.compile(
     r"(?<!\w)[0-9A-Fa-f:.]*:[0-9A-Fa-f:.]+(?:%[A-Za-z0-9_.~-]+)?(?!\w)"
@@ -154,97 +148,23 @@ def verified_provenance_text(path, text, root):
 
 
 def scalar(value):
-    """Read the package's string-only frontmatter subset without YAML evaluation."""
+    """Read a provenance string without YAML evaluation."""
     value = value.strip()
     if not value or value[0] in "!&*|>[{":
-        raise ValueError("Frontmatter needs a single-line string scalar.")
+        raise ValueError("Provenance needs a single-line string scalar.")
     if value.startswith('"'):
         parsed = json.loads(value)
         if not isinstance(parsed, str):
-            raise ValueError("Quoted frontmatter values must be strings.")
+            raise ValueError("Quoted provenance values must be strings.")
         return parsed
     if value.startswith("'"):
         if not value.endswith("'") or len(value) < 2:
-            raise ValueError("Unclosed frontmatter string.")
+            raise ValueError("Unclosed provenance string.")
         return value[1:-1].replace("''", "'")
     return value
 
 
-def frontmatter(text):
-    lines = text.splitlines()
-    if not lines or lines[0] != "---":
-        raise ValueError("Frontmatter must start on the first line.")
-    try:
-        end = lines.index("---", 1)
-    except ValueError as error:
-        raise ValueError("Frontmatter has no closing delimiter.") from error
-    result = {}
-    for line in lines[1:end]:
-        if not line.strip() or line.lstrip().startswith("#"):
-            continue
-        nested = re.fullmatch(r"(?: {2}| {4})([a-z][a-z0-9_-]*):\s*(.+)", line)
-        if nested and isinstance(result.get("metadata"), dict):
-            name, value = nested.groups()
-            if name in result["metadata"]:
-                raise ValueError("Duplicate metadata key.")
-            result["metadata"][name] = scalar(value)
-            continue
-        match = re.fullmatch(r"([a-z][a-z0-9-]*):\s*(.*)", line)
-        if not match:
-            raise ValueError("Unsupported frontmatter syntax.")
-        name, value = match.groups()
-        if name in result:
-            raise ValueError("Duplicate frontmatter key.")
-        result[name] = {} if name == "metadata" and not value else scalar(value)
-    return result, "\n".join(lines[end + 1:])
-
-
-def headings(text):
-    result = []
-    fence = None
-    for index, line in enumerate(text.splitlines()):
-        match = re.match(r"\s*(`{3,}|~{3,})", line)
-        if match:
-            marker = match.group(1)[0]
-            fence = None if fence == marker else marker if fence is None else fence
-            continue
-        if fence:
-            continue
-        match = re.fullmatch(r"(#{1,6})\s+(.+?)\s*#*", line)
-        if match:
-            result.append((len(match.group(1)), match.group(2), index))
-    return result
-
-
-def skill_structure(name, body):
-    found = headings(body)
-    if [title for level, title, _ in found if level == 1] != [name]:
-        return False
-    sections = [title for level, title, _ in found if level == 2]
-    if "Instructions" not in sections or len(sections) != len(set(sections)):
-        return False
-    if any(title not in SKILL_SECTIONS for title in sections):
-        return False
-    if sections != sorted(sections, key=SKILL_SECTIONS.index):
-        return False
-    current = None
-    previous_level = 0
-    lines = body.splitlines()
-    for position, (level, title, line) in enumerate(found):
-        if level > 3 or level > previous_level + 1:
-            return False
-        if level == 2:
-            current = title
-        if level == 3 and current not in {"Constraints", "Instructions", "Verification", "Troubleshooting"}:
-            return False
-        next_line = found[position + 1][2] if position + 1 < len(found) else len(lines)
-        if level >= 2 and not any(value.strip() for value in lines[line + 1:next_line]):
-            return False
-        previous_level = level
-    return True
-
-
-def local_references_valid(path, root, skill_tree=None):
+def local_references_valid(path, root):
     text = path.read_text()
     targets = []
     for match in re.finditer(r"\[[^\]]*\]\((?:<([^>]+)>|([^\s)]+))(?:\s+\"[^\"]*\")?\)", text):
@@ -276,54 +196,24 @@ def local_references_valid(path, root, skill_tree=None):
                     parts.append(part.casefold())
                 if tuple(parts) == private_parts:
                     return False
-        boundary = root if root_fallback else skill_tree or root
+        boundary = root
         if not any(candidate.resolve().is_relative_to(boundary.resolve()) and candidate.exists() for candidate in candidates):
             return False
     return True
 
 
-def agent_checks(root):
-    results = []
-
-    def check(name, passed):
-        results.append((name, bool(passed)))
-
-    expected = [root / ".agents/skills" / name / "SKILL.md" for name in SKILL_NAMES]
-    check("canonical_skill_files_present", all(path.is_file() for path in expected))
-    for path, name in zip(expected, SKILL_NAMES, strict=True):
-        if not path.is_file():
-            continue
-        try:
-            text = path.read_text()
-            data, body = frontmatter(text)
-            description = data.get("description", "")
-            check(f"{name}_canonical_frontmatter", set(data).issubset(SKILL_FIELDS) and data.get("name") == name and re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", name) and isinstance(description, str) and 0 < len(description) < 1024 and "USE WHEN" in description and "NOT FOR" in description and bool(data.get("compatibility")))
-            check(f"{name}_canonical_sections", skill_structure(name, body))
-            check(f"{name}_bounded_static_entrypoint", len(text.splitlines()) <= 100 and not re.search(r"!`|(?m:^\s*@\S+)", body))
-            check(f"{name}_local_references", local_references_valid(path, root, path.parent))
-        except (OSError, ValueError, TypeError):
-            check(f"{name}_readable_frontmatter", False)
-    contract = root / DAYBREAK_CONTRACT
-    try:
-        data, body = frontmatter(contract.read_text())
-        check("daybreak_contract_identity", set(data).issubset({"name", "description", "model"}) and data.get("name") == "daybreak-adversary" and bool(data.get("description")) and data.get("model") == DAYBREAK_MODEL)
-        check("daybreak_contract_sections", len([x for x in headings(body) if x[0] == 1]) == 1 and {"Scope", "Review method", "Output", "Dispatch"}.issubset({x[1] for x in headings(body) if x[0] == 2}))
-    except (OSError, ValueError, TypeError):
-        check("daybreak_contract_readable", False)
-    adapter = root / ".codex/agents/daybreak-adversary.toml"
-    try:
-        data = tomllib.loads(adapter.read_text())
-        check("codex_adapter_fields_allowlisted", set(data) == {"name", "description", "model", "model_reasoning_effort", "sandbox_mode", "developer_instructions"})
-        check("codex_adapter_required_metadata", data.get("name") == "daybreak_adversary" and bool(data.get("description")) and bool(data.get("developer_instructions")))
-        check("codex_adapter_daybreak_read_only", data.get("model") == DAYBREAK_MODEL and data.get("model_reasoning_effort") == "high" and data.get("sandbox_mode") == "read-only")
-        check("codex_adapter_canonical_contract_reference", DAYBREAK_CONTRACT in data.get("developer_instructions", "") and contract.is_file())
-    except (OSError, ValueError, TypeError):
-        check("codex_adapter_readable", False)
-    documents = [root / "AGENTS.md", root / ".agents/README.md", contract, root / "README.md", root / "PUBLISHING.md", *sorted((root / ".agents/rules").glob("*.md"))]
-    check("agent_rules_present", len(list((root / ".agents/rules").glob("*.md"))) >= 3)
-    check("agent_document_headings", all(path.is_file() and len([x for x in headings(path.read_text()) if x[0] == 1]) == 1 for path in documents))
-    check("agent_document_local_references", all(path.is_file() and local_references_valid(path, root) for path in documents))
-    return results
+def document_checks(root):
+    """Check local links in the maintained guides without a prose toolchain."""
+    names = (
+        "README.md", "INSTALL.md", "AGENTS.md", "CONTRIBUTING.md", "PUBLISHING.md",
+        "THIRD_PARTY.md", "docs/reference.md", "docs/private-companion.md",
+        "docs/skeleton-alignment.md", "docs/native-workflow.md",
+        "docs/cleanup-method.md", "docs/identities.md",
+    )
+    return [("document_local_references", all(
+        (root / name).is_file() and local_references_valid(root / name, root)
+        for name in names
+    ))]
 
 
 def domains_overlap(left, right):
@@ -544,7 +434,7 @@ def main():
     check("no_executable_fingerprints", not FINGERPRINT.search("\n".join(fingerprint_texts)))
     check("no_private_vpn_server_labels", not re.search(r"\b[A-Z]{2}#\d+\b", contents))
     check("no_credential_bearing_urls", not re.search(r"https?://[^\s\"<>]+(?:[?&](?:token|authkey|api_key|key)=|@)", contents, re.IGNORECASE))
-    for name, passed in agent_checks(ROOT):
+    for name, passed in document_checks(ROOT):
         check(name, passed)
     return finish()
 

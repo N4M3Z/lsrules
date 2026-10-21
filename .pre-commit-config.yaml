@@ -1,11 +1,5 @@
-# Local checks only. This file does not install or activate hooks.
-exclude: '(^private(?:/|$)|(^|/)\.provenance/|^docs/decisions/)'
+# Optional local hooks. Setup does not activate them.
 repos:
-  - repo: builtin
-    hooks:
-      - id: trailing-whitespace
-      - id: check-yaml
-      - id: check-json
   - repo: local
     hooks:
       - id: package-validation
@@ -14,32 +8,6 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
-      - id: ruff
-        name: Python lint
-        entry: ruff check --no-cache
-        language: system
-        files: '^scripts/.*\.py$'
-      - id: vale
-        name: prose style
-        entry: vale --no-wrap
-        language: system
-        types: [markdown]
-      - id: rumdl
-        name: Markdown structure
-        entry: rumdl check --no-cache
-        language: system
-        types: [markdown]
-      - id: actionlint
-        name: workflow lint
-        entry: actionlint
-        language: system
-        files: '^\.github/workflows/.*\.ya?ml$'
-      - id: schemas
-        name: installation and pull request schemas
-        entry: make schemas
-        language: system
-        pass_filenames: false
-        files: '^(INSTALL\.md|schemas/|\.github/PULL_REQUEST_TEMPLATE\.md)'
       - id: gitleaks
         name: staged secret scan
         entry: gitleaks git --staged --pre-commit --no-banner

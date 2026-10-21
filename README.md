@@ -1,43 +1,30 @@
 # lsrules
 
-> Little Snitch 6 policy references and offline Python validators for repository agents. The repository contains no machine backup and applies no host changes.
+> Little Snitch policy references: profile designs, a blocklist catalog, and a manual workflow to apply them.
+
+The repository describes three profile designs: Trusted, Untrusted, and Work. The blocklist catalog lists source options to choose from. It is not an inventory of installed lists. Work domains are scoped by hand. An optional global deny rule is included as an example and stays disabled. You apply every change yourself in Little Snitch with the [native workflow](docs/native-workflow.md).
 
 ## Install
 
-Use Git and Python 3.11 or later. No package installation is necessary.
+You need Git, Python 3.11 or later, and Make. The checks have no package dependencies.
 
 ```sh
-git clone https://github.com/N4M3Z/lsrules.git
+git clone --no-recurse-submodules https://github.com/N4M3Z/lsrules.git
 cd lsrules
 ```
 
-A normal clone does not initialize the [private submodule](docs/private-companion.md). Do not add `--recurse-submodules`.
-Setup makes no firewall changes. Little Snitch 6 is necessary only for manual host changes.
-Agents can use [INSTALL.md](INSTALL.md) for a verified setup.
+The `private/` submodule points to a separate private repository and stays uninitialized. Agents can follow [INSTALL.md](INSTALL.md).
 
 ## Usage
 
-Run the offline checks from the repository root:
-
 ```sh
-python3 -B scripts/check.py
-python3 -B scripts/test_check.py
+make validate
 ```
 
-Both commands exit 0 on success. They run offline and do not change repository files.
-With Make installed, `make validate` runs both commands.
-Read [AGENTS.md](AGENTS.md) before agent work.
-
-## Documentation
-
-- [Reference](docs/reference.md): package scope, agent workflow, policy files, Work setup, list selection, and check limits.
-- [Native workflow](docs/native-workflow.md): manual review in Little Snitch 6.
-- [Private submodule](docs/private-companion.md): the private boundary and clone behavior.
-- [Publication procedure](PUBLISHING.md): approval boundaries before a push.
-- [Contributing](CONTRIBUTING.md): local tooling, public-file checks, and review conventions.
-- [Template alignment](docs/skeleton-alignment.md): applicable skeleton parts and their limits.
+This runs the Python checker and its tests offline. It changes nothing in Little Snitch.
+See the [policy reference](docs/reference.md) for profile behavior, rule files, and blocklist choices.
 
 ## License
 
-This package uses [EUPL-1.2](LICENSE). See the [third-party notices](THIRD_PARTY.md).
-The package license does not license external blocklist contents or private companion data.
+[EUPL-1.2](LICENSE). See [third-party notices](THIRD_PARTY.md).
+The license does not cover external blocklist contents or private companion data.

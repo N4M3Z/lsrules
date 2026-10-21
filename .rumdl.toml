@@ -1,6 +1,0 @@
-[global]
-disable = ["MD013", "MD025", "MD041"]
-exclude = ["private", ".git", ".jj", ".provenance", "docs/decisions"]
-
-[MD007]
-indent = 4

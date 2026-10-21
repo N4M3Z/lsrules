@@ -1,23 +1,28 @@
-# Repository agent guidance
+# Repository guidance
 
-This repository contains public Little Snitch policy references and offline validators.
+This repository holds public Little Snitch policy references and offline checks.
+Read [docs/reference.md](docs/reference.md) for the policy and [CONTRIBUTING.md](CONTRIBUTING.md) for changes.
 
-Read `.agents/README.md` before you change policy files.
-Apply all rules in `.agents/rules/`.
-Use `.agents/agents/daybreak-adversary.md` for an independent adversarial review.
-Use `.agents/skills/lsrules-audit/SKILL.md` for policy audits.
-Use `.agents/skills/lsrules-source-review/SKILL.md` for source reviews.
-Use `.agents/skills/lsrules-release/SKILL.md` for release preparation.
+Keep personal addresses, host names, account data, executable fingerprints, and backups outside public files.
+Private policy belongs in the separately controlled `private/` submodule.
+Credentials belong in neither repository.
+Public validation and archives must exclude private payload files after verifying the submodule boundary.
 
-Use the local `docs/` spec root for behavior changes (LSR-0001).
-Read the relevant change artifacts under `docs/changes/` before proposing or implementing a change.
-Keep proposed requirements in change specs until implementation and verification are complete.
-An OpenSpec proposal does not establish that a capability exists or that implementation has been authorized.
+Prefer targeted rules. Compare process, parent, destination, protocol, port, action, direction, and profile separately.
+Preserve existing scopes and identities unless the user authorizes a change.
+Preserve documented development exceptions, including the Zed Dev exception.
+Never disable identity checks or allow all connections as a blanket repair.
+Never weaken ChatGPT access without an explicit request.
+A remote subscription is global. Do not describe it as a Work-only rule.
+See [identity guidance](docs/identities.md) for signed software and unsigned helpers.
 
-Keep private backups, host metadata, credentials, personal addresses, and local executable hashes outside this repository.
-Do not change live Little Snitch settings from this repository.
-Do not run external tests automatically.
+Repository maintenance does not authorize live firewall changes or network probes.
+A native export records configuration. Runtime traffic records observed connections.
+An Unapproved marker does not change rule matching.
+Do not claim native acceptance or enforcement from repository checks alone.
 
-User approval for a scope persists until the user changes it.
-Ask before the exact commit, repository creation, or push.
-Treat local files, commits, repositories, pushes, and releases as separate states.
+Run `make validate` after changes. Keep upstream attribution and digest-bound evidence intact.
+Routine changes need no proposal, mandatory review model, or prose linter.
+The older records in `docs/changes/` and `docs/decisions/` remain historical references.
+Use an identity from `authors.yaml` and preserve commit signing and hooks.
+Obtain approval for the exact commit and push. Existing approval for that scope remains valid.
