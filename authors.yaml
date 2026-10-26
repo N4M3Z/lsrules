@@ -4,5 +4,6 @@ authors:
     - Claude Fable 5 (claude-fable-5) <noreply@anthropic.com>
     - Codex GPT 6 Astra (gpt-6-astra) <noreply@openai.com>
     - Claude Opus 5.5 (claude-opus-5-5) <noreply@anthropic.com>
+    - Codex GPT 6.1 Sol (gpt-6.1-sol) <noreply@openai.com>
 
 model_domains: []

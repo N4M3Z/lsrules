@@ -62,10 +62,17 @@ These are source options, not an installed-list inventory or an instruction to c
 The catalog records source links without copying list contents or subscribing automatically.
 
 For a new setup, use the following starting guidance.
-Start with Peter Lowe for ads and tracking, plus URLhaus for malware destinations.
-Verify current native catalog availability, update health, and URLhaus access requirements.
+Start with Peter Lowe for ads and tracking, plus URLhaus (online mirror) for malware destinations.
+The catalog links the [malware-filter maintainer's hosts feed](https://github.com/curbengh/urlhaus-filter).
+This third-party source needs no Auth-Key.
+It derives hostnames from URLs marked online by URLhaus, with separate popularity exclusions.
+The former official hostfile also included recent entries. URLhaus does not endorse the mirror.
+Verify the mirror update date and review its scope before subscribing.
+Use the [authenticated official feed](https://urlhaus.abuse.ch/api/) if you need the official criteria.
+Keep credentials outside this package.
 AdAway can remain a continuity choice beside Peter Lowe. Both overlap with larger general-purpose lists.
-Consider StevenBlack or HaGezi Light as alternatives after false-positive review. Avoid stacking a larger list on both existing ad lists.
+Consider StevenBlack or HaGezi Light as alternatives after false-positive review.
+Avoid stacking a larger list on both existing ad lists.
 The catalog links upstream sources. It does not vendor or download their contents.
 See [blocklists](https://help.obdev.at/littlesnitch6/concepts-blocklists) and [URLhaus access](https://urlhaus.abuse.ch/api/).
 
@@ -84,7 +91,8 @@ The validator excludes its payload only after verifying the private boundary.
 An absent private checkout validates the declaration only. Publication staging must verify the selected child commit separately.
 The checks cover policy safety, private data boundaries, and local guide links.
 The validator excludes root Git and Jujutsu metadata, plus Python bytecode caches, from package content.
-Document provenance digests require verification against local source bytes before the fingerprint check can exempt their exact metadata fields.
+Document provenance digests require verification against local source bytes.
+The fingerprint check can then exempt their exact metadata fields.
 Other digest occurrences still receive the fingerprint check. A declared digest alone does not establish an exception.
 A JSON check does not prove native import acceptance or effective rule precedence.
 Test browsing, sign-in, mail, calls, DHCP, and VPN transitions in the selected profile.
